@@ -4,6 +4,7 @@ from ttkbootstrap.toast import ToastNotification
 from tkinter import Listbox, filedialog
 from datetime import date, datetime
 import csv
+from excel import Excel
 
 
 class FinanceApp:
@@ -153,4 +154,63 @@ class FinanceApp:
         self.payment_description = self.description.get()
 
         self.load_csv()
+
+        # Populate the Xlsx Tab
+        self.frame_3 = tb.Frame(self.excel_file_tab, bootstyle="dark")
+        self.frame_3.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+
+        self.first_day_label = tb.Label(
+            self.frame_3, text="Choose the date of the first payment",
+            font=("Helvetica", 16), bootstyle="secondary")
+        self.first_day_label.grid(row=1, column=0, padx=5, pady=5)
+
+        self.first_day = tb.DateEntry(
+            self.frame_3, bootstyle="secondary", firstweekday=0, width=17,
+            dateformat="%d-%m-%Y", startdate=self.today)
+        self.first_day.grid(row=1, column=1, padx=5, pady=5)
+
+        self.last_day_label = tb.Label(
+            self.frame_3, text="Choose the date of the last payment",
+            font=("Helvetica", 16), bootstyle="secondary")
+        self.last_day_label.grid(row=2, column=0, padx=5, pady=5)
+
+        self.last_day = tb.DateEntry(
+            self.frame_3, bootstyle="secondary", firstweekday=0, width=17,
+            dateformat="%d-%m-%Y", startdate=self.today)
+        self.last_day.grid(row=2, column=1, padx=5, pady=5)
+
+        # Button for generating the xlsx file
+        xlsx_button = tb.Button(
+            self.frame_3, text="Get Excel",
+            command=self.generate_xlsx,
+            bootstyle="warning outline")
+        xlsx_button.grid(row=3, column=0, columnspan=2, pady=10)
+
+        self.excel_file_tab.grid_rowconfigure(0, weight=1)
+        self.excel_file_tab.grid_columnconfigure(0, weight=1)
+
+        # In Excel Tab Create frame_4 for displaying Xlsx Files
+        frame_4 = tb.Frame(self.excel_file_tab, bootstyle="dark")
+        frame_4.grid(row=0, column=1, padx=20, pady=20, sticky="nsew")
+
+        # Label for Xlsx File
+        excel_label = tb.Label(frame_4, text="Right Click to Save the File",
+                               font=("Helvetica", 28),
+                               bootstyle="info")
+        excel_label.grid(row=0, column=0, padx=5, pady=5, sticky="n")
+
+        # Listbox to display Xlsx Files
+        self.excel_listbox = Listbox(frame_4, width=50, height=15)
+        self.excel_listbox.grid(row=1, column=0, padx=5, pady=5,
+                                sticky="nsew")
+
+        # Configure grid layout for frame_4
+        frame_4.grid_rowconfigure(1, weight=1)
+        frame_4.grid_columnconfigure(0, weight=1)
+
+        # Developed by Label
+        copyright_label = tb.Label(
+            root, text="Developed with Python by AceL1b0",
+            font=("Helvetica", 15), bootstyle="danger")
+        copyright_label.grid(row=1, column=0, padx=5, pady=5, sticky="ew")
 
