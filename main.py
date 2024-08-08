@@ -37,3 +37,50 @@ class FinanceApp:
             bootstyle="info")
         self.main_label.grid(row=1, column=0, columnspan=2, padx=30, pady=30,
                              sticky="w")
+
+        # Create data entries
+        # Date
+        my_date_label = tb.Label(frame_1, text="Enter the date",
+                                 font=("Helvetica", 16), bootstyle="secondary")
+        my_date_label.grid(row=2, column=0, padx=5, pady=5, sticky="w")
+
+        self.my_date = tb.DateEntry(frame_1, bootstyle="secondary",
+                                    firstweekday=0, width=17,
+                                    dateformat="%d-%m-%Y",
+                                    startdate=self.today)
+        self.my_date.grid(row=2, column=1, padx=5, pady=5)
+
+        # Amount
+        amount_label = tb.Label(frame_1, text="Enter the amount",
+                                font=("Helvetica", 16), bootstyle="secondary")
+        amount_label.grid(row=3, column=0, padx=5, pady=5, sticky="w")
+
+        self.amount = tb.Entry(frame_1, bootstyle="secondary",
+                               font=("Helvetica", 16))
+        self.amount.grid(row=3, column=1, padx=5, pady=5)
+
+        # Category
+        categories = ["", "Income", "Expense"]
+        category_label = tb.Label(frame_1, text="Enter the category",
+                                  font=("Helvetica", 16),
+                                  bootstyle="secondary")
+        category_label.grid(row=4, column=0, padx=5, pady=5, sticky="w")
+
+        self.category = tb.Combobox(frame_1, bootstyle="secondary",
+                                    values=categories, width=18)
+        self.category.grid(row=4, column=1, padx=5, pady=5)
+        self.category.current(0)
+
+        # Description
+        description_categories = ["", "Baby", "Car", "Drugstore", "Food",
+                                  "Furnishing", "Other", "Standing Payments",
+                                  "Salary", "Rent"]
+        description_label = tb.Label(frame_1, text="Enter the description",
+                                     font=("Helvetica", 16),
+                                     bootstyle="secondary")
+        description_label.grid(row=5, column=0, padx=5, pady=5, sticky="w")
+
+        self.description = tb.Combobox(frame_1, bootstyle="secondary",
+                                       values=description_categories, width=18)
+        self.description.grid(row=5, column=1, padx=5, pady=5)
+        self.description.current(0)
