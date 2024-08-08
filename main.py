@@ -6,6 +6,13 @@ from datetime import date, datetime
 import csv
 from excel import Excel
 import shutil
+import sys, os
+
+
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
 
 
 class FinanceApp:
@@ -333,3 +340,10 @@ class FinanceApp:
                                                                  "*.xlsx")])
             if file_path:
                 shutil.copy(selected_file, file_path)
+
+
+if __name__ == "__main__":
+    root = tb.Window(themename="solar")
+    app = FinanceApp(root)
+    root.mainloop()
+    input()
