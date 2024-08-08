@@ -112,3 +112,44 @@ class FinanceApp:
         frame_2.grid_rowconfigure(1, weight=1)
         frame_2.grid_columnconfigure(0, weight=1)
 
+        # Create a frame for CSV file and entries
+        # Frame for CSV actions
+        csv_frame = tb.Frame(self.csv_file_tab, bootstyle="dark")
+        csv_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+
+        # Clear CSV Button
+        clear_csv_button = tb.Button(csv_frame, text="Clear CSV",
+                                     command=self.clear_csv,
+                                     bootstyle="warning outline")
+        clear_csv_button.grid(row=0, column=0, padx=5, pady=5)
+
+        # Treeview to display CSV data
+        self.csv_treeview = ttk.Treeview(csv_frame, columns=self.columns,
+                                         show="headings")
+        self.csv_treeview.heading("date", text="Date")
+        self.csv_treeview.heading("amount", text="Amount")
+        self.csv_treeview.heading("category", text="Category")
+        self.csv_treeview.heading("description", text="Description")
+        self.csv_treeview.grid(row=1, column=0, columnspan=2, padx=5, pady=5,
+                               sticky="nsew")
+
+        # Scrollbar for the Treeview
+        scrollbar = ttk.Scrollbar(csv_frame, orient=tk.VERTICAL,
+                                  command=self.csv_treeview.yview)
+        self.csv_treeview.configure(yscroll=scrollbar.set)
+        scrollbar.grid(row=1, column=2, sticky="ns")
+
+        # Configure grid layout for frame_3
+        csv_frame.grid_rowconfigure(1, weight=1)
+        csv_frame.grid_columnconfigure(1, weight=1)
+
+        # Payments Values
+        payment_date_str = self.my_date.entry.get()
+        payment_date = datetime.strptime(payment_date_str,
+                                         '%d-%m-%Y').date()
+        self.payment_date_formated = payment_date.strftime('%d-%m-%Y')
+        self.payment_amount = self.amount.get()
+        self.payment_category = self.category.get()
+        self.payment_description = self.description.get()
+
+        self.load_csv()
