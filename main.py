@@ -1,6 +1,7 @@
 import ttkbootstrap as tb
 from ttkbootstrap import *
 from ttkbootstrap.toast import ToastNotification
+from tkinter import Listbox, filedialog
 from datetime import date, datetime
 import csv
 
@@ -84,3 +85,30 @@ class FinanceApp:
                                        values=description_categories, width=18)
         self.description.grid(row=5, column=1, padx=5, pady=5)
         self.description.current(0)
+
+        # Create button and label for transactions
+        # Button to add payment
+        add_button = tb.Button(
+            frame_1, text="Add Payment", command=self.add,
+            bootstyle="warning outline")
+        add_button.grid(row=6, column=0, columnspan=2, pady=10)
+
+        # Create frame for displaying payments
+        frame_2 = tb.Frame(self.main_tab, bootstyle="dark")
+        frame_2.grid(row=0, column=1, padx=20, pady=20, sticky="nsew")
+
+        # Label for payments list
+        payments_label = tb.Label(frame_2, text="Payments",
+                                  font=("Helvetica", 16),
+                                  bootstyle="info")
+        payments_label.grid(row=0, column=0, padx=5, pady=5, sticky="n")
+
+        # Listbox to display payments
+        self.payments_listbox = Listbox(frame_2, width=50, height=15)
+        self.payments_listbox.grid(row=1, column=0, padx=5, pady=5,
+                                   sticky="nsew")
+
+        # Configure grid layout for frame_2
+        frame_2.grid_rowconfigure(1, weight=1)
+        frame_2.grid_columnconfigure(0, weight=1)
+
