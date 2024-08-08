@@ -5,6 +5,7 @@ from tkinter import Listbox, filedialog
 from datetime import date, datetime
 import csv
 from excel import Excel
+import shutil
 
 
 class FinanceApp:
@@ -287,3 +288,48 @@ class FinanceApp:
             self.payment_date_formated, self.payment_amount,
             self.payment_category, self.payment_description))
 
+    def generate_xlsx(self):
+        first_date_str = self.first_day.entry.get()
+        first_date = datetime.strptime(first_date_str,
+                                       '%d-%m-%Y').date()
+        first_date_formated = first_date.strftime('%d-%m-%Y')
+
+        last_date_str = self.last_day.entry.get()
+        last_date = datetime.strptime(last_date_str,
+                                      '%d-%m-%Y').date()
+        last_date_formated = last_date.strftime('%d-%m-%Y')
+        Excel.get_excel(first_date_formated, last_date_formated)
+
+        # Toast Message after generating Xlsx File
+        toast_message = ToastNotification(
+            title="Months Balance App Message",
+            message="Excel file has been generated!",
+            duration=5000,
+            alert=True
+        )
+        toast_message.show_toast()
+
+        self.payments_listbox.delete(0, tk.END)
+        self.excel_listbox.insert(
+            tk.END,
+            f"{first_date_formated}_{last_date_formated}.xlsx")
+
+        # Create the context menu
+        self.context_menu = tk.Menu(self.root, tearoff=0)
+        self.context_menu.add_command(label="Save As",
+                                      command=self.save_as)
+
+        # Bind right-click to show the context menu
+        self.excel_listbox.bind("<Button-2>", self.show_context_menu)
+
+    def show_context_menu(self, event):
+        self.context_menu.post(event.x_root, event.y_root)
+
+    def save_as(self):
+        selected_file = self.excel_listbox.get(tk.ACTIVE)
+        if selected_file:
+            file_path = filedialog.asksaveasfilename(defaultextension=".xlsx",
+                                                     filetypes=[("Excel files",
+                                                                 "*.xlsx")])
+            if file_path:
+                shutil.copy(selected_file, file_path)
