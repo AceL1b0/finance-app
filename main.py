@@ -153,3 +153,4 @@ class FinanceApp:
         self.payment_description = self.description.get()
 
         self.load_csv()
+
