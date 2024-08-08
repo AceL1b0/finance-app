@@ -13,7 +13,7 @@ Regular Payments: Predefine regular monthly payments that can be automatically a
 Contextual Menus: Right-click context menus for saving files from the app to the local machine.
 Interactive UI: The app includes interactive elements such as buttons, labels, list boxes, and date pickers.
 Customizable Layout: Users can interact with different tabs and sections within the app to view and manage their financial data.
-Installation
+Installation. The GUI was made with pyinstaller and Platypus for bundle.
 
 ## Prerequisites
     Python 3.x installed on your machine.
@@ -48,7 +48,8 @@ Generates an Excel summary of transactions within a specified date range.
     /Generated .xlsx files will be deleted when reload the app.
 
 ### Developed by: AceL1b0
-### GitHub Repository: [Your GitHub URL]
+### GitHub Repository: 
+https://github.com/AceL1b0/months-balance-app.git
 ### License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
