@@ -214,3 +214,76 @@ class FinanceApp:
             font=("Helvetica", 15), bootstyle="danger")
         copyright_label.grid(row=1, column=0, padx=5, pady=5, sticky="ew")
 
+    def clear_csv(self):
+        for item in self.csv_treeview.get_children():
+            self.csv_treeview.delete(item)
+
+        with open(self.csv_file, mode='w', newline='') as file:
+            writer = csv.DictWriter(file, fieldnames=self.columns)
+            writer.writeheader()
+
+    def load_csv(self):
+        try:
+            with open(self.csv_file, mode='r') as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    self.csv_treeview.insert("", tk.END, values=(
+                        row["date"], row["amount"], row["category"],
+                        row["description"]))
+        except FileNotFoundError:
+            with open(self.csv_file, mode='w', newline='') as file:
+                writer = csv.DictWriter(file, fieldnames=self.columns)
+                writer.writeheader()
+
+    def add_entry(self, my_date, amount, category, description):
+        new_entry = {
+            "date": my_date,
+            "amount": amount,
+            "category": category,
+            "description": description
+        }
+
+        with open(self.csv_file, "a", newline="") as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=self.columns)
+            writer.writerow(new_entry)
+
+    def add(self):
+        payment_date_str = self.my_date.entry.get()
+        payment_date = datetime.strptime(payment_date_str,
+                                         '%d-%m-%Y').date()
+        self.payment_date_formated = payment_date.strftime('%d-%m-%Y')
+        self.payment_amount = self.amount.get()
+        self.payment_category = self.category.get()
+        self.payment_description = self.description.get()
+
+        # Add entry to the CSV file
+        self.add_entry(self.payment_date_formated, self.payment_amount,
+                       self.payment_category, self.payment_description)
+
+        # Insert payments to the Listbox
+        self.payments_listbox.delete(0, tk.END)
+        self.payments_listbox.insert(
+            tk.END, f"Date: {self.payment_date_formated}")
+        self.payments_listbox.insert(
+            tk.END, f"Amount: {self.payment_amount}")
+        self.payments_listbox.insert(
+            tk.END, f"Category: {self.payment_category}")
+        self.payments_listbox.insert(
+            tk.END, f"Description: {self.payment_description}")
+        self.payments_listbox.insert(tk.END, "")
+
+        # Update the main label
+        self.main_label.config(text=f"Added successfully")
+        self.main_label.after(1500, lambda: self.main_label.config(
+            text="Enter the transaction"))
+
+        # Clear the entry fields
+        self.amount.delete(0, tb.END)
+        self.category.current(0)
+        self.description.current(0)
+
+        # Insert the new entry into the Treeview
+        self.csv_treeview.insert("", tk.END, values=(
+            self.payment_date_formated, self.payment_amount,
+            self.payment_category, self.payment_description))
+
