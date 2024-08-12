@@ -36,9 +36,15 @@ class Excel:
         drug_store = df[df['description'] == 'Drug Store']['amount'].sum()
         electronics = df[df['description'] == 'Electronics']['amount'].sum()
         baby = df[df['description'] == 'Baby']['amount'].sum()
-        other = df[df['description'] == 'Other']['amount'].sum()
         standing_payments = (
             df[df['description'] == 'Standing Payments']['amount'].sum())
+        presents = df[df['popis'] == 'Presents']['castka'].sum()
+        clothes = df[df['popis'] == 'Clothes']['castka'].sum()
+        insurance = df[df['popis'] == 'Insurance']['castka'].sum()
+        fun = df[df['popis'] == 'Fun']['castka'].sum()
+        animals = df[df['popis'] == 'Animals']['castka'].sum()
+        other = df[df['popis'] == 'Other']['castka'].sum()
+
         salary = df[df['description'] == 'Salary']['amount'].sum()
         rent_income = df[df['description'] == 'Rent Income']['amount'].sum()
 
@@ -127,17 +133,32 @@ class Excel:
         worksheet2.write(9, 0, "Baby", header_format)
         worksheet2.write(9, 1, baby, format_amount)
 
-        worksheet2.write(10, 0, "Other", header_format)
-        worksheet2.write(10, 1, other, format_amount)
+        worksheet2.write(10, 0, "Standing Payments", header_format)
+        worksheet2.write(10, 1, standing_payments, format_amount)
 
-        worksheet2.write(11, 0, "Standing Payments", header_format)
-        worksheet2.write(11, 1, standing_payments, format_amount)
+        worksheet2.write(11, 0, "Presents", header_format)
+        worksheet2.write(11, 1, presents, format_amount)
 
-        worksheet2.write(13, 0, "Salary", header_format)
-        worksheet2.write(13, 1, salary, format_amount)
+        worksheet2.write(12, 0, "Clothes", header_format)
+        worksheet2.write(12, 1, clothes, format_amount)
 
-        worksheet2.write(14, 0, "Rent Income", header_format)
-        worksheet2.write(14, 1, rent_income, format_amount)
+        worksheet2.write(13, 0, "Insurance", header_format)
+        worksheet2.write(13, 1, insurance, format_amount)
+
+        worksheet2.write(14, 0, "Fun", header_format)
+        worksheet2.write(14, 1, fun, format_amount)
+
+        worksheet2.write(15, 0, "Animals", header_format)
+        worksheet2.write(15, 1, animals, format_amount)
+
+        worksheet2.write(16, 0, "Other", header_format)
+        worksheet2.write(16, 1, other, format_amount)
+
+        worksheet2.write(18, 0, "Salary", header_format)
+        worksheet2.write(18, 1, salary, format_amount)
+
+        worksheet2.write(19, 0, "Rent Income", header_format)
+        worksheet2.write(19, 1, rent_income, format_amount)
 
         # Adding a chart
         chart = workbook.add_chart({'type': 'column'})

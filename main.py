@@ -61,44 +61,48 @@ class FinanceApp:
         self.my_date.grid(row=2, column=1, padx=5, pady=5)
 
         # Amount
-        amount_label = tb.Label(frame_1, text="Enter the amount "
-                                              "(float. point numbers "
-                                              "with ' . ' ) ",
+        amount_label = tb.Label(frame_1, text="Enter the amount ",
                                 font=("Helvetica", 16), bootstyle="secondary")
         amount_label.grid(row=3, column=0, padx=5, pady=5, sticky="w")
 
+        amount_label_2 = tb.Label(
+            frame_1, text="(float. point numbers with ' . ' ) ",
+            font=("Helvetica", 16), bootstyle="secondary")
+        amount_label_2.grid(row=4, column=0, padx=5, pady=5, sticky="w")
+
         self.amount = tb.Entry(frame_1, bootstyle="secondary",
                                font=("Helvetica", 16))
-        self.amount.grid(row=3, column=1, padx=5, pady=5)
+        self.amount.grid(row=4, column=1, padx=5, pady=5)
 
         # Category
         categories = ["", "Income", "Expense"]
         self.category_label = tb.Label(frame_1, text="Enter category",
-                                  font=("Helvetica", 16),
-                                  bootstyle="secondary")
-        self.category_label.grid(row=4, column=0, padx=5, pady=5, sticky="w")
+                                       font=("Helvetica", 16),
+                                       bootstyle="secondary")
+        self.category_label.grid(row=5, column=0, padx=5, pady=5, sticky="w")
 
         self.category = tb.Combobox(frame_1, bootstyle="secondary",
                                     values=categories, width=18)
-        self.category.grid(row=4, column=1, padx=5, pady=5)
+        self.category.grid(row=5, column=1, padx=5, pady=5)
         self.category.current(0)
 
         # Description
         self.description_categories = {
             "Income": ["", "Salary", "Rent Income"],
             "Expense": ["", "Children", "Car", "Drugstore", "Food",
-                      "Furnishing", "Electronics", "Other",
-                      "Standing Payments"]
+                        "Furnishing", "Electronics", "Standing Payments",
+                        "Presents", "Clothes", "Insurance", "Fun",
+                        "Animals", "Other"]
         }
         self.description_label = tb.Label(frame_1, text="Enter description",
                                           font=("Helvetica", 16),
                                           bootstyle="secondary")
-        self.description_label.grid(row=5, column=0, padx=5, pady=5,
+        self.description_label.grid(row=6, column=0, padx=5, pady=5,
                                     sticky="w")
 
         self.description = tb.Combobox(frame_1, bootstyle="secondary",
                                        values=[], width=18)
-        self.description.grid(row=5, column=1, padx=5, pady=5)
+        self.description.grid(row=6, column=1, padx=5, pady=5)
 
         self.category.bind("<<ComboboxSelected>>", self.update_description)
 
@@ -107,7 +111,7 @@ class FinanceApp:
         add_button = tb.Button(
             frame_1, text="Add Payment", command=self.add,
             bootstyle="warning outline")
-        add_button.grid(row=6, column=0, columnspan=2, pady=10)
+        add_button.grid(row=7, column=0, columnspan=2, pady=10)
 
         # Create frame for displaying payments
         frame_2 = tb.Frame(self.main_tab, bootstyle="dark")
