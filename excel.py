@@ -34,13 +34,13 @@ class Excel:
         furnishing = df[df['description'] == 'Furnishing']['amount'].sum()
         car = df[df['description'] == 'Car']['amount'].sum()
         drug_store = df[df['description'] == 'Drug Store']['amount'].sum()
-        electronic = df[df['description'] == 'Electronic']['amount'].sum()
+        electronics = df[df['description'] == 'Electronics']['amount'].sum()
         baby = df[df['description'] == 'Baby']['amount'].sum()
         other = df[df['description'] == 'Other']['amount'].sum()
         standing_payments = (
             df[df['description'] == 'Standing Payments']['amount'].sum())
         salary = df[df['description'] == 'Salary']['amount'].sum()
-        rent = df[df['description'] == 'Rent']['amount'].sum()
+        rent_income = df[df['description'] == 'Rent Income']['amount'].sum()
 
         # XlsxConstructor
         writer = pd.ExcelWriter(
@@ -122,7 +122,7 @@ class Excel:
         worksheet2.write(7, 1, drug_store, format_amount)
 
         worksheet2.write(8, 0, "Electronic", header_format)
-        worksheet2.write(8, 1, electronic, format_amount)
+        worksheet2.write(8, 1, electronics, format_amount)
 
         worksheet2.write(9, 0, "Baby", header_format)
         worksheet2.write(9, 1, baby, format_amount)
@@ -136,8 +136,8 @@ class Excel:
         worksheet2.write(13, 0, "Salary", header_format)
         worksheet2.write(13, 1, salary, format_amount)
 
-        worksheet2.write(14, 0, "Rent", header_format)
-        worksheet2.write(14, 1, rent, format_amount)
+        worksheet2.write(14, 0, "Rent Income", header_format)
+        worksheet2.write(14, 1, rent_income, format_amount)
 
         # Adding a chart
         chart = workbook.add_chart({'type': 'column'})

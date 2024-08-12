@@ -61,7 +61,9 @@ class FinanceApp:
         self.my_date.grid(row=2, column=1, padx=5, pady=5)
 
         # Amount
-        amount_label = tb.Label(frame_1, text="Enter the amount",
+        amount_label = tb.Label(frame_1, text="Enter the amount "
+                                              "(float. point numbers "
+                                              "with ' . ' ) ",
                                 font=("Helvetica", 16), bootstyle="secondary")
         amount_label.grid(row=3, column=0, padx=5, pady=5, sticky="w")
 
@@ -71,10 +73,10 @@ class FinanceApp:
 
         # Category
         categories = ["", "Income", "Expense"]
-        category_label = tb.Label(frame_1, text="Enter the category",
+        self.category_label = tb.Label(frame_1, text="Enter category",
                                   font=("Helvetica", 16),
                                   bootstyle="secondary")
-        category_label.grid(row=4, column=0, padx=5, pady=5, sticky="w")
+        self.category_label.grid(row=4, column=0, padx=5, pady=5, sticky="w")
 
         self.category = tb.Combobox(frame_1, bootstyle="secondary",
                                     values=categories, width=18)
@@ -82,18 +84,23 @@ class FinanceApp:
         self.category.current(0)
 
         # Description
-        description_categories = ["", "Baby", "Car", "Drugstore", "Food",
-                                  "Furnishing", "Other", "Standing Payments",
-                                  "Salary", "Rent"]
-        description_label = tb.Label(frame_1, text="Enter the description",
-                                     font=("Helvetica", 16),
-                                     bootstyle="secondary")
-        description_label.grid(row=5, column=0, padx=5, pady=5, sticky="w")
+        self.description_categories = {
+            "Income": ["", "Salary", "Rent Income"],
+            "Expense": ["", "Children", "Car", "Drugstore", "Food",
+                      "Furnishing", "Electronics", "Other",
+                      "Standing Payments"]
+        }
+        self.description_label = tb.Label(frame_1, text="Enter description",
+                                          font=("Helvetica", 16),
+                                          bootstyle="secondary")
+        self.description_label.grid(row=5, column=0, padx=5, pady=5,
+                                    sticky="w")
 
         self.description = tb.Combobox(frame_1, bootstyle="secondary",
-                                       values=description_categories, width=18)
+                                       values=[], width=18)
         self.description.grid(row=5, column=1, padx=5, pady=5)
-        self.description.current(0)
+
+        self.category.bind("<<ComboboxSelected>>", self.update_description)
 
         # Create button and label for transactions
         # Button to add payment
@@ -108,7 +115,7 @@ class FinanceApp:
 
         # Label for payments list
         payments_label = tb.Label(frame_2, text="Payments",
-                                  font=("Helvetica", 16),
+                                  font=("Helvetica", 28),
                                   bootstyle="info")
         payments_label.grid(row=0, column=0, padx=5, pady=5, sticky="n")
 
@@ -221,6 +228,17 @@ class FinanceApp:
             root, text="Developed with Python by AceL1b0",
             font=("Helvetica", 15), bootstyle="danger")
         copyright_label.grid(row=1, column=0, padx=5, pady=5, sticky="ew")
+
+    def update_description(self, event):
+        selected_category = self.category.get()
+
+        if selected_category in self.description_categories:
+            self.description["values"] = (
+                self.description_categories)[selected_category]
+            self.description.current(0)
+        else:
+            self.description["values"] = []
+            self.description.set("")
 
     def clear_csv(self):
         for item in self.csv_treeview.get_children():
