@@ -49,7 +49,7 @@ Generates an Excel summary of transactions within a specified date range.
 
 ### Developed by: AceL1b0
 ### GitHub Repository: 
-https://github.com/AceL1b0/months-balance-app.git
+https://github.com/AceL1b0/finance-app.git
 ### License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
