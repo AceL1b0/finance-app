@@ -332,7 +332,7 @@ class FinanceApp:
         # Toast Message after generating Xlsx File
         toast_message = ToastNotification(
             title="Months Balance App Message",
-            message="Excel file has been generated!!",
+            message="Excel file has been generated!",
             duration=5000,
             alert=True
         )
