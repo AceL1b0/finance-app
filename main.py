@@ -18,7 +18,7 @@ def resource_path(relative_path):
 class FinanceApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Month Balance App 1.0/EN")
+        self.root.title("Finance App v1.0/EN")
         self.root.geometry("1000x450")
 
         self.columns = ["date", "amount", "category", "description"]

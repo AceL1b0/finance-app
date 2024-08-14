@@ -38,12 +38,12 @@ class Excel:
         baby = df[df['description'] == 'Baby']['amount'].sum()
         standing_payments = (
             df[df['description'] == 'Standing Payments']['amount'].sum())
-        presents = df[df['popis'] == 'Presents']['castka'].sum()
-        clothes = df[df['popis'] == 'Clothes']['castka'].sum()
-        insurance = df[df['popis'] == 'Insurance']['castka'].sum()
-        fun = df[df['popis'] == 'Fun']['castka'].sum()
-        animals = df[df['popis'] == 'Animals']['castka'].sum()
-        other = df[df['popis'] == 'Other']['castka'].sum()
+        presents = df[df['description'] == 'Presents']['amount'].sum()
+        clothes = df[df['description'] == 'Clothes']['amount'].sum()
+        insurance = df[df['description'] == 'Insurance']['amount'].sum()
+        fun = df[df['description'] == 'Fun']['amount'].sum()
+        animals = df[df['description'] == 'Animals']['amount'].sum()
+        other = df[df['description'] == 'Other']['amount'].sum()
 
         salary = df[df['description'] == 'Salary']['amount'].sum()
         rent_income = df[df['description'] == 'Rent Income']['amount'].sum()
@@ -164,14 +164,14 @@ class Excel:
         chart = workbook.add_chart({'type': 'column'})
         chart.add_series({
             'name': 'Expenses',
-            'categories': '=Sheet2!A5:A12',
-            'values': '=Sheet2!B5:B12',
+            'categories': '=Sheet2!A5:A17',
+            'values': '=Sheet2!B5:B17',
         })
 
         chart.set_title({'name': 'Months Balance'})
         chart.set_x_axis({'name': 'Categories'})
         chart.set_y_axis({'name': 'Amount in CZK'})
 
-        worksheet2.insert_chart('D2', chart)
+        worksheet2.insert_chart('D2', chart, {'x_scale': 1.5, 'y_scale': 1.5})
 
         writer.close()
